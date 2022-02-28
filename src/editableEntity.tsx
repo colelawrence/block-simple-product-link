@@ -25,6 +25,8 @@ export function editableEntity<BlockProps>(
   // editFn: (editing: { ui: JSX.Element | null }) => JSX.Element
 ) => JSX.Element {
   return function useEditableProp(key, renderFn) {
+    const editable = true; // todo (part of block protocol?)
+
     const [editing, setEditing] = React.useState(false);
     const [saveValue, setSaveValue] = React.useState(initialEntity[key]);
     const [value, setValue] = React.useState(saveValue);
@@ -38,19 +40,21 @@ export function editableEntity<BlockProps>(
     return renderFn({
       value,
       edit() {
-        if (!editing) {
+        if (editable && !editing) {
           setEditing(true);
         }
       },
       clickToEdit: {
-        onClick() {
-          if (!editing) {
+        onClick(evt: React.MouseEvent) {
+          if (editable && !editing) {
             setEditing(true);
+            evt.preventDefault();
+            evt.stopPropagation();
           }
         },
       },
       isEditing: editing,
-      isEditable: true, // TODO: wire up based on protocol writability
+      isEditable: editable,
       editingUI: editing ? (
         <div className="editor-value">
           <EditingUI
@@ -62,7 +66,10 @@ export function editableEntity<BlockProps>(
               setValue(saveValue);
             }}
             saveValue={() => {
-              setSaveValue(value);
+              if (editable) {
+                setSaveValue(value);
+              }
+
               setEditing(false);
             }}
           />
@@ -115,12 +122,14 @@ function clickOrEnter(then: () => void) {
     onClick(evt: React.MouseEvent) {
       if (evt.button === 0) {
         evt.stopPropagation();
+        evt.preventDefault();
         then();
       }
     },
     onKeydown(evt: React.KeyboardEvent) {
       if (evt.key === "Enter") {
         evt.stopPropagation();
+        evt.preventDefault();
         then();
       }
     },

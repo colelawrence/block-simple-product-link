@@ -24,11 +24,25 @@ export const App: BlockComponent<AppProps> = (props) => {
       <img
         {...view.clickToEdit}
         src={view.value}
-        style={{ width: "auto", minWidth: "4rem", maxWidth: "10rem", height: "auto", minHeight: "4rem", maxHeight: "10rem" }}
+        style={{
+          width: "auto",
+          minWidth: "4rem",
+          maxWidth: "10rem",
+          height: "auto",
+          minHeight: "4rem",
+          maxHeight: "10rem",
+        }}
       />
       {view.isEditing && (
         // absolute to hover below
-        <div style={{ position: "absolute", background: "white", padding: "1rem" }}>
+        <div
+          style={{
+            position: "absolute",
+            background: "white",
+            padding: "1rem",
+            zIndex: 1,
+          }}
+        >
           {view.editingUI}
         </div>
       )}
