@@ -1,0 +1,33 @@
+:root {
+  --simple-product-link--font-family: system-ui;
+  --simple-product-link--padding: 1rem;
+}
+
+.simple-product-link {
+  font-family: sans-serif;
+  font-family: var(--simple-product-link--font-family);
+  padding: var(--simple-product-link--padding);
+}
+
+.empty-placeholder:empty::before {
+  /* non-breaking space */
+  content: " ";
+  display: inline-block;
+  min-width: 4em;
+  border-radius: 4px;
+  background-color: rgba(127, 127, 127, 0.2);
+}
+
+.editing-ui {
+  position: relative;
+}
+
+.editing-ui--controls {
+  position: absolute;
+  top: 110%;
+  display: flex;
+}
+
+.editing-ui--controls button {
+  margin-right: 0.5rem;
+}
