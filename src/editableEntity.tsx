@@ -29,6 +29,12 @@ export function editableEntity<BlockProps>(
     const [saveValue, setSaveValue] = React.useState(initialEntity[key]);
     const [value, setValue] = React.useState(saveValue);
 
+    // in case the value updates
+    React.useEffect(() => {
+      console.log(initialEntity[key], { key, initialEntity });
+      setSaveValue(initialEntity[key]);
+    }, [initialEntity[key]]);
+
     return renderFn({
       value,
       edit() {

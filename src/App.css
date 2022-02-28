@@ -7,6 +7,7 @@
   font-family: sans-serif;
   font-family: var(--simple-product-link--font-family);
   padding: var(--simple-product-link--padding);
+  color: inherit;
 }
 
 .empty-placeholder:empty::before {

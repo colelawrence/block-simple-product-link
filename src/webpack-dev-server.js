@@ -9,12 +9,17 @@ import ReactDOM from "react-dom";
 import { MockBlockDock } from "mock-block-dock";
 
 import Component from "./index";
-
+import packageJSON from "../package.json";
 const node = document.getElementById("app");
+
+const { blockprotocol = {} } = packageJSON;
 
 const App = () => (
   <MockBlockDock>
-    <Component entityId="test-block-1" name="World" />
+    <Component
+      entityId="test-block-1"
+      {...(blockprotocol.examples?.[0] ?? {})}
+    />
   </MockBlockDock>
 );
 
